@@ -1,4 +1,4 @@
-from project.shared.event_bus import EventBus
+from project.shared.domain.event_bus import EventBus
 
 from ..domain.shipment import ShipmentId
 from ..domain.shipment_repo import ShipmentRepo

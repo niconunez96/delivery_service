@@ -1,7 +1,7 @@
 import json
 from dataclasses import dataclass
 
-from ..event_bus import DomainEvent
+from ..domain.event_bus import DomainEvent
 
 
 @dataclass

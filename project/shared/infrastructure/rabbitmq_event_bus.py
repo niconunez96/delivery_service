@@ -2,7 +2,7 @@ import os
 
 import pika
 
-from .event_bus import DomainEvent, EventBus
+from ..domain.event_bus import DomainEvent, EventBus
 
 
 class RabbitMQEventBus(EventBus):

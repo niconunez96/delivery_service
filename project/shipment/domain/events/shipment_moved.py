@@ -1,7 +1,7 @@
 import json
 from datetime import datetime
 from dataclasses import dataclass
-from project.shared.event_bus import DomainEvent
+from project.shared.domain.event_bus import DomainEvent
 
 @dataclass(frozen=True)
 class ShipmentMoved(DomainEvent):

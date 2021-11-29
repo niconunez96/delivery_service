@@ -1,6 +1,6 @@
 from typing import List
 
-from .event_bus import DomainEvent, EventBus
+from ..domain.event_bus import DomainEvent, EventBus
 
 
 class InMemoryEventBus(EventBus):

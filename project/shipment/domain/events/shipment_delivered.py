@@ -2,7 +2,7 @@ import json
 from dataclasses import dataclass
 from datetime import datetime
 
-from project.shared.event_bus import DomainEvent
+from project.shared.domain.event_bus import DomainEvent
 
 
 @dataclass(frozen=True)
