@@ -1,0 +1,16 @@
+POST localhost:5000/api/costumers_addresses/
+
+GET localhost:5000/api/costumers_addresses/user/1/
+
+// Enviar order placed por rabbitmq para empezar el shipment
+
+
+POST localhost:5000/api/shipments/:id/move/
+
+POST localhost:5000/api/shipments/:id/deliver/
+
+GET localhost:5000/api/shipments/:id/
+
+GET localhost:5000/api/shipments/orders/:id
+
+GET localhost:5000/api/shipments/:id/trip/

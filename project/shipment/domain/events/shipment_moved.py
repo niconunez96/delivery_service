@@ -16,7 +16,7 @@ class ShipmentMoved(DomainEvent):
     def to_json(self) -> str:
         return json.dumps({
             "shipment_id": self.shipment_id,
-            "when": self.when.isoformat(),
+            "when": self.when.strftime("%Y-%m-%dT%H:%M:%S.%f"),
             "country": self.country,
             "city": self.city,
             "address": self.address,
