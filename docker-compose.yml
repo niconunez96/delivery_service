@@ -25,7 +25,7 @@ services:
             dockerfile: Dockerfile.dev
         container_name: delivery_service
         environment:
-            - ENV_CONFIG=settings.settings.DevelopmentConfig
+            - ENV_CONFIG=project.settings.settings.DevelopmentConfig
             - MONGO_HOST=mongo_db
             - MONGO_DB_NAME=delivery
             - RABBITMQ_HOST=rabbitmq
