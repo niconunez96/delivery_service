@@ -1,7 +1,7 @@
 import json
 from datetime import datetime
 
-from project.shared.event_listener import domain_event_listener
+from project.shared.infrastructure.event_listener import domain_event_listener
 
 from ...application.shipment_event_creator import ShipmentEventCreator
 from ...domain.events.shipment_created import ShipmentCreated

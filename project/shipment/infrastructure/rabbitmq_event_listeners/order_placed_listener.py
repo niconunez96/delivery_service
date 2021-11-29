@@ -1,5 +1,5 @@
 import json
-from project.shared.event_listener import domain_event_listener
+from project.shared.infrastructure.event_listener import domain_event_listener
 from project.shared.events.order_placed import OrderPlaced
 from project.shipment.application.shipment_starter import ShipmentStarter
 from project.shipment.application.shipment_starter import ShipmentInfo
