@@ -14,8 +14,8 @@ from ..infrastructure.shipment_mongo_repo import ShipmentMongoRepo
 
 @dataclass(frozen=True)
 class ShipmentInfo:
-    user_id: str
     order_id: str
+    user_id: str
 
 
 class ShipmentStarter:
