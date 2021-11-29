@@ -14,7 +14,7 @@ from project.costumer_address.domain.costumer_address_id import CostumerAddressI
 from project.costumer_address.infrastructure.costumer_address_mongo_repo import (
     CostumerAddressMongoRepo,
 )
-from project.shared.errors import EntityNotFound
+from project.shared.domain.errors import EntityNotFound
 
 from .response import INVALID_RESPONSE, NOT_FOUND_RESPONSE, Response
 

@@ -1,6 +1,6 @@
 from flask_pymongo import PyMongo
 from project.database import mongo_client
-from project.shared.errors import EntityNotFound
+from project.shared.domain.errors import EntityNotFound
 
 from ..domain.shipment import Shipment, ShipmentId
 from ..domain.shipment_repo import ShipmentRepo

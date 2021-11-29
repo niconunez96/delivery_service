@@ -2,7 +2,7 @@ from ..domain.costumer_address_id import CostumerAddressId
 from ..domain.costumer_address import CostumerAddress
 from ..domain.costumer_address_repo import CostumerAddressRepo
 from .dto import CostumerAddressInfo
-from project.shared.errors import EntityNotFound
+from project.shared.domain.errors import EntityNotFound
 
 
 class CostumerAddressAlreadyExists(Exception):
