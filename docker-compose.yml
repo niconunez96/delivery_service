@@ -1,0 +1,39 @@
+version: "3"
+services:
+    db_server:
+        build: ./db
+        container_name: mysql-db
+        restart: always
+        environment:
+            - MYSQL_ROOT_PASSWORD=1234
+            - MYSQL_USER=dev_user
+        expose:
+            - 3306
+        healthcheck:
+            test: exit 0
+        ports:
+            - 3306:3307
+    book_app:
+        build:
+            context: .
+            dockerfile: Dockerfile.dev
+        container_name: delivery_service
+        environment:
+            - ENV_CONFIG=settings.settings.DevelopmentConfig
+            - DB_CONNECTOR=mysql+mysqlconnector
+            - DB_USER=dev_user
+            - DB_PASS=1234
+            - DB_HOST=db_server
+            - DB_NAME=delivery
+            - WAIT_HOSTS=db_server:3306
+        volumes:
+            - ./project:/app/project
+        entrypoint: sh -c "/wait && python /app/project/manage.py db upgrade && python
+            /app/project/server.py"
+        depends_on:
+            - db_server
+        ports:
+            - "8000:5000"
+        restart: on-failure
+        stdin_open: true
+        tty: true

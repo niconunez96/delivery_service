@@ -1,0 +1,21 @@
+FROM python:3.6-alpine
+
+# Add dependencies to install uwsgi
+RUN apk add python3-dev build-base postgresql-dev linux-headers pcre-dev gcc
+
+
+WORKDIR /app
+COPY ./requirements.txt .
+RUN pip install -r requirements.txt
+
+EXPOSE 5000
+
+## Add the wait script to the image
+ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.7.3/wait /wait
+RUN chmod +x /wait
+
+COPY ./project ./project
+COPY ./migrations ./migrations
+
+ENTRYPOINT [ "python" ]
+CMD ["./project/server.py"]
