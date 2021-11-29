@@ -9,10 +9,10 @@ class RabbitMQEventBus(EventBus):
     DOMAIN_EVENT_EXCHANGE = "domain_events"
 
     def __init__(self):
-        connection = pika.BlockingConnection(
+        self.connection = pika.BlockingConnection(
             pika.ConnectionParameters(host=os.environ.get("RABBITMQ_HOST", "localhost"))
         )
-        self.channel = connection.channel()
+        self.channel = self.connection.channel()
 
         self.channel.exchange_declare(
             exchange=self.DOMAIN_EVENT_EXCHANGE,
@@ -29,3 +29,4 @@ class RabbitMQEventBus(EventBus):
             routing_key=event.DOMAIN_EVENT,
             body=event.to_json(),
         )
+        self.connection.close()
