@@ -1,17 +1,22 @@
 from flask import Blueprint, jsonify, request
 from project.costumer_address.application.constumer_address_updater import (
-    CostumerAddressInfo, CostumerAddressUpdater)
+    CostumerAddressInfo,
+    CostumerAddressUpdater,
+)
 from project.costumer_address.application.costumer_address_creator import (
-    CostumerAddressAlreadyExists, CostumerAddressCreator)
-from project.costumer_address.application.costumer_address_finder import \
-    CostumerAddressFinder
-from project.costumer_address.domain.costumer_address_id import \
-    CostumerAddressId
-from project.costumer_address.infrastructure.costumer_address_mongo_repo import \
-    CostumerAddressMongoRepo  # noqa
+    CostumerAddressAlreadyExists,
+    CostumerAddressCreator,
+)
+from project.costumer_address.application.costumer_address_finder import (
+    CostumerAddressFinder,
+)
+from project.costumer_address.domain.costumer_address_id import CostumerAddressId
+from project.costumer_address.infrastructure.costumer_address_mongo_repo import (
+    CostumerAddressMongoRepo,
+)
 from project.shared.errors import EntityNotFound
 
-from .response import NOT_FOUND_RESPONSE, Response
+from .response import INVALID_RESPONSE, NOT_FOUND_RESPONSE, Response
 
 costumer_address = Blueprint(
     "costumer_address", __name__, url_prefix="/api/costumer_addresses"
@@ -30,13 +35,15 @@ def create_costumer_address():
             costumer_address_id,
             CostumerAddressInfo.from_dict(request.get_json()),
         )
-        return Response(jsonify("Success"), 200)
+        return Response(
+            jsonify({"uri": f"/api/costumer_addresses/{costumer_address_id}/"}), 200
+        )
     except KeyError:
-        return Response(jsonify("Invalid costumer address data"), 400)
+        return INVALID_RESPONSE("Invalid costumer address data")
     except ValueError:
-        return Response(jsonify("Invalid costumer address id"), 400)
+        return INVALID_RESPONSE("Invalid costumer address id")
     except CostumerAddressAlreadyExists:
-        return Response(jsonify("Costumer address already exists"), 400)
+        return INVALID_RESPONSE("Costumer address already exists")
 
 
 @costumer_address.route("/<string:id>/", methods=["PUT"])
@@ -48,13 +55,15 @@ def update_costumer_address(id: str):
             costumer_address_id,
             CostumerAddressInfo.from_dict(request.get_json()),
         )
-        return Response(jsonify("Success"), 200)
+        return Response(
+            jsonify({"uri": f"/api/costumer_addresses/{costumer_address_id}/"}), 200
+        )
     except EntityNotFound:
         return NOT_FOUND_RESPONSE
     except KeyError:
-        return Response(jsonify("Invalid costumer address data"), 400)
+        return INVALID_RESPONSE("Invalid costumer address data")
     except ValueError:
-        return Response(jsonify("Invalid costumer address id"), 400)
+        return INVALID_RESPONSE("Invalid costumer address id")
 
 
 @costumer_address.route("/user/<string:user_id>/", methods=["GET"])
