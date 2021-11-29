@@ -12,3 +12,7 @@ class ShipmentFinder:
     def find(self, shipment_id: ShipmentId) -> ShipmentResponse:
         shipment = self._shipment_repo.find_by_id(shipment_id)
         return shipment.to_response()
+
+    def find_by_order(self, order_id: str) -> ShipmentResponse:
+        shipment = self._shipment_repo.find_by_order_id(order_id)
+        return shipment.to_response()

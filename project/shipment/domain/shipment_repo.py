@@ -13,3 +13,9 @@ class ShipmentRepo:
         :raises: EntityNotFound
         """
         raise NotImplementedError
+
+    def find_by_order_id(self, order_id: str) -> Shipment:
+        """
+        :raises: EntityNotFound
+        """
+        raise NotImplementedError

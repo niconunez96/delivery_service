@@ -29,3 +29,12 @@ class ShipmentMongoRepo(ShipmentRepo):
         if not result:
             raise EntityNotFound
         return Shipment.from_dict(result)
+
+    def find_by_order_id(self, order_id: str) -> Shipment:
+        """
+        :raises: EntityNotFound
+        """
+        result = self._mongo_client.db.shipments.find_one({"order_id": order_id})
+        if not result:
+            raise EntityNotFound
+        return Shipment.from_dict(result)
