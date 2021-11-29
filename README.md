@@ -1,8 +1,8 @@
-# Flask application
+# Flask application 🐍
 
 Prueba de concepto de una aplicacion flask con DDD y event sourcing.
 
-# Documentacion
+# Documentacion 📜
 **Endpoints**
 1. POST `/api/costumer_addresses/`
 Body
@@ -47,7 +47,7 @@ Body
     * Exchange: `domain_events`
     * Routing key: `shipment_delivered`
 
-## Cómo correr la aplicación
+## Cómo correr la aplicación 🏃‍♂️
 Se puede correr la aplicacion utilizando docker-compose o de forma local
 
 **Localmente**
@@ -71,7 +71,7 @@ Se puede correr la aplicacion utilizando docker-compose o de forma local
 
     `python server.py`
 
-**Via docker-compose**
+**Via docker-compose** 🐳
 1. Correr:
 
     `make runserver`
