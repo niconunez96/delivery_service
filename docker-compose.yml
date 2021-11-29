@@ -30,8 +30,6 @@ services:
             - MONGO_DB_NAME=delivery
             - RABBITMQ_HOST=rabbitmq
             - WAIT_HOSTS=mongo_db:27017
-        volumes:
-            - ./project:/app/project
         entrypoint: sh -c "/wait && python /app/server.py"
         depends_on:
             - mongo_db
