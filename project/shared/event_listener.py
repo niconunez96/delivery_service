@@ -1,3 +1,4 @@
+import os
 import threading
 import pika
 
@@ -7,7 +8,7 @@ def domain_event_listener(event_type: str):
         def wrapper(*args, **kwargs):
             try:
                 connection = pika.BlockingConnection(
-                    pika.ConnectionParameters(host="rabbitmq")
+                    pika.ConnectionParameters(host=os.environ.get("RABBITMQ_HOST", "localhost"))
                 )
                 channel = connection.channel()
 

@@ -5,10 +5,12 @@ from project.costumer_address.application.costumer_address_finder import \
     CostumerAddressFinder
 from project.shared.errors import EntityNotFound
 from project.shared.event_bus import EventBus
+from project.shared.rabbitmq_event_bus import RabbitMQEventBus
 
 from ..domain.shipment import Shipment, ShipmentDestination, ShipmentId
 from ..domain.shipment_repo import ShipmentRepo
 
+from ..infrastructure.shipment_mongo_repo import ShipmentMongoRepo
 
 @dataclass(frozen=True)
 class ShipmentInfo:
@@ -23,12 +25,12 @@ class ShipmentStarter:
 
     def __init__(
         self,
-        shipment_repo: ShipmentRepo,
-        event_bus: EventBus,
+        shipment_repo: Optional[ShipmentRepo] = None,
+        event_bus: Optional[EventBus] = None,
         costumer_address_finder: Optional[CostumerAddressFinder] = None,
     ):
-        self._shipment_repo = shipment_repo
-        self._event_bus = event_bus
+        self._shipment_repo = shipment_repo or ShipmentMongoRepo()
+        self._event_bus = event_bus or RabbitMQEventBus()
         self._costumer_address_finder = (
             costumer_address_finder or CostumerAddressFinder()
         )

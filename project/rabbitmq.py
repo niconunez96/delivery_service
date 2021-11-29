@@ -1,9 +1,11 @@
+import os
 import json
 import threading
 
 import pika
 
 from project.shipment.infrastructure.rabbitmq_event_listeners import (  # noqa
+    OrderPlacedListener,
     ShipmentCreatedListener,
     ShipmentDeliveredListener,
     ShipmentMovedListener,
@@ -28,10 +30,13 @@ def initDomainListeners():
     shipment_moved = threading.Thread(target=shipment_moved_listener.listen)
     shipment_delivered_listener = ShipmentDeliveredListener()
     shipment_delivered = threading.Thread(target=shipment_delivered_listener.listen)
+    order_placed_listener = OrderPlacedListener()
+    order_placed = threading.Thread(target=order_placed_listener.listen)
 
     shipment_created.start()
     shipment_moved.start()
     shipment_delivered.start()
+    order_placed.start()
 
 
 def listenAuth():
@@ -49,9 +54,7 @@ def listenAuth():
     AUTH_EXCHANGE = "auth"
 
     try:
-        connection = pika.BlockingConnection(
-            pika.ConnectionParameters(host="rabbitmq")
-        )
+        connection = pika.BlockingConnection(pika.ConnectionParameters(host=os.environ.get("RABITMQ_HOST", "localhost")))
         channel = connection.channel()
 
         channel.exchange_declare(
