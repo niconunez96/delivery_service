@@ -29,7 +29,7 @@ services:
             - MONGO_HOST=mongo_db
             - MONGO_DB_NAME=delivery
             - RABBITMQ_HOST=rabbitmq
-            - WAIT_HOSTS=mongo_db:27017
+            - WAIT_HOSTS=mongo_db:27017,rabbitmq:5672
         entrypoint: sh -c "/wait && python /app/server.py"
         depends_on:
             - mongo_db

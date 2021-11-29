@@ -54,7 +54,7 @@ def listenAuth():
     AUTH_EXCHANGE = "auth"
 
     try:
-        connection = pika.BlockingConnection(pika.ConnectionParameters(host=os.environ.get("RABITMQ_HOST", "localhost")))
+        connection = pika.BlockingConnection(pika.ConnectionParameters(host=os.environ.get("RABBITMQ_HOST", "localhost")))
         channel = connection.channel()
 
         channel.exchange_declare(
