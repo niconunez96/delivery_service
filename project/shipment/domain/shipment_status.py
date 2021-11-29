@@ -14,7 +14,7 @@ def is_valid_status_transition(
     valid_transitions = {
         PREPARING: [ON_TRIP],
         ON_TRIP: [DELIVERED, ON_TRIP],
-        DELIVERED: [ON_TRIP],
+        DELIVERED: [],
     }
     return (
         valid_transitions.get(from_status)

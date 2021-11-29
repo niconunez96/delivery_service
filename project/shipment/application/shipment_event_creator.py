@@ -16,7 +16,6 @@ class ShipmentEventCreator:
         shipment_event = ShipmentEvent.create_shipment_preparing(
             event_data.shipment_id, event_data.when
         )
-        print(shipment_event)
         self._shipment_event_store.append(shipment_event)
 
     def shipment_moved(self, event_data: ShipmentMoved):
