@@ -4,7 +4,7 @@ from flask import Flask, Blueprint
 from werkzeug.utils import import_string
 
 from project.settings.settings import Config
-from project.database import db, mongo_client
+from project.database import mongo_client
 from project.controller import delivery, costumer_address
 from project.rabbitmq import initAuth, initDomainListeners
 
@@ -27,11 +27,7 @@ class AppBuilder:
             self.app.register_blueprint(endpoint)
 
     def add_database(self) -> None:
-        self.app.config['SQLALCHEMY_DATABASE_URI'] \
-            = self.config_instance.DATABASE_URI
-        self.app.config['MONGO_URI'] = "mongodb://localhost:27017/delivery"
-        # silence the deprecation warning
-        self.app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+        self.app.config['MONGO_URI'] = self.config_instance.MONGO_URI
 
     def build(self) -> Flask:
         return self.app
@@ -42,7 +38,6 @@ app_builder.add_endpoints([delivery, costumer_address])
 app_builder.add_database()
 
 app = app_builder.build()
-db.init_app(app)
 mongo_client.init_app(app)
 initAuth()
 initDomainListeners()

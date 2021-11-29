@@ -7,7 +7,7 @@ def domain_event_listener(event_type: str):
         def wrapper(*args, **kwargs):
             try:
                 connection = pika.BlockingConnection(
-                    pika.ConnectionParameters(host="localhost")
+                    pika.ConnectionParameters(host="rabbitmq")
                 )
                 channel = connection.channel()
 

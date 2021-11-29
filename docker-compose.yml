@@ -1,39 +1,43 @@
 version: "3"
 services:
-    db_server:
-        build: ./db
-        container_name: mysql-db
-        restart: always
-        environment:
-            - MYSQL_ROOT_PASSWORD=1234
-            - MYSQL_USER=dev_user
+    mongo_db:
+        image: mongo:4.2.16-rc0-bionic
+        container_name: mongo-delivery-db
         expose:
-            - 3306
-        healthcheck:
-            test: exit 0
+            - "27017"
         ports:
-            - 3306:3307
-    book_app:
+            - "27017:27017"
+        # volumes:
+        #     - ./data/db:/data/db
+        environment:
+            - ME_CONFIG_MONGODB_SERVER=delivery
+        restart: always
+    rabbitmq:
+        image: rabbitmq:3-management
+        container_name: rabbitmq-delivery
+        ports:
+            - "5672:5672"
+            - "8080:15672"
+        restart: always
+    shipment_app:
         build:
             context: .
             dockerfile: Dockerfile.dev
         container_name: delivery_service
         environment:
             - ENV_CONFIG=settings.settings.DevelopmentConfig
-            - DB_CONNECTOR=mysql+mysqlconnector
-            - DB_USER=dev_user
-            - DB_PASS=1234
-            - DB_HOST=db_server
-            - DB_NAME=delivery
-            - WAIT_HOSTS=db_server:3306
+            - MONGO_HOST=mongo_db
+            - MONGO_DB_NAME=delivery
+            - RABBITMQ_HOST=rabbitmq
+            - WAIT_HOSTS=mongo_db:27017
         volumes:
             - ./project:/app/project
-        entrypoint: sh -c "/wait && python /app/project/manage.py db upgrade && python
-            /app/project/server.py"
+        entrypoint: sh -c "/wait && python /app/server.py"
         depends_on:
-            - db_server
+            - mongo_db
+            - rabbitmq
         ports:
-            - "8000:5000"
+            - "5000:5000"
         restart: on-failure
         stdin_open: true
         tty: true

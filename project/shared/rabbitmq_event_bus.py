@@ -7,7 +7,7 @@ class RabbitMQEventBus(EventBus):
 
     def __init__(self):
         connection = pika.BlockingConnection(
-            pika.ConnectionParameters(host="localhost")
+            pika.ConnectionParameters(host="rabbitmq")
         )
         self.channel = connection.channel()
 
