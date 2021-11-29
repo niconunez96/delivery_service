@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from project.controller.response import INVALID_RESPONSE, NOT_FOUND_RESPONSE, Response
 from project.shared.domain.errors import EntityNotFound
-from project.shared.rabbitmq_event_bus import RabbitMQEventBus
+from project.shared.infrastructure.rabbitmq_event_bus import RabbitMQEventBus
 from project.shipment.application.shipment_deliver import (
     InvalidShipmentStatusToDeliver,
     ShipmentDeliver,

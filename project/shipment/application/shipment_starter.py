@@ -5,7 +5,7 @@ from project.costumer_address.application.costumer_address_finder import \
     CostumerAddressFinder
 from project.shared.domain.errors import EntityNotFound
 from project.shared.domain.event_bus import EventBus
-from project.shared.rabbitmq_event_bus import RabbitMQEventBus
+from project.shared.infrastructure.rabbitmq_event_bus import RabbitMQEventBus
 
 from ..domain.shipment import Shipment, ShipmentDestination, ShipmentId
 from ..domain.shipment_repo import ShipmentRepo
